@@ -10,6 +10,8 @@ exports.getRecords = (req, res, next) => {
 
 exports.addRecord = (req, res, next) => {
     const record = req.body;
+    console.log(record);
+
     db.get('records')
         .push(record)
         .last()
