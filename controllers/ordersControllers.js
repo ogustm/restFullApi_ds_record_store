@@ -22,6 +22,20 @@ exports.addOrder = (req, res, next) => {
     res.status(200).send(order);
 };
 
+exports.getOneOrder = (req, res, next) => {
+    const {
+        id
+    } = req.params;
+
+    const order = db.get('orders').find({
+        id
+    }).value();
+
+    res.status(200).send(order);
+
+}
+
+
 exports.deleteOrder = (req, res, next) => {
     const {
         id
