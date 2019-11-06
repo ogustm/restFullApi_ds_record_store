@@ -44,21 +44,12 @@
     },
     {
       "firstName": "Lolita",
-      "lastName": "Pérez",
+      "lastName": "Schulz",
       "userName": "lolip",
       "birthday": "25.05.1987",
       "email": "loli@gmail.com",
       "password": "12Pl%14",
       "id": "1572532295475"
-    },
-    {
-      "firstName": "Lalo",
-      "lastName": "Lalillo",
-      "userName": "lalo",
-      "birthday": "03.12.1970",
-      "email": "lalo@gmail.com",
-      "password": "3215oi%&",
-      "id": "1572532416937"
     }
   ],
   "orders": [

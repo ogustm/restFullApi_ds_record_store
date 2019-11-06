@@ -3,12 +3,19 @@ var router = express.Router();
 
 const {
   getUser,
-  addUser
+  addUser,
+  deleteUser,
+  updateUser
 } = require('../controllers/usersControllers');
 
 /* GET users listing. */
-router.get('/', getUser); // The controller function
 
-router.post('/', addUser);
+router
+  .route('/')
+  .get(getUser)
+  .post(addUser);
+
+router
+  .route('/:id').delete(deleteUser).put(updateUser);
 
 module.exports = router;
