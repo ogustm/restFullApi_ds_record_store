@@ -4,7 +4,8 @@ const {
     getRecords,
     addRecord,
     getRecord,
-    deleteRecord
+    deleteRecord,
+    updateRecord
 } = require('../controllers/recordsControllers');
 
 router
@@ -13,7 +14,7 @@ router
     .post(addRecord);
 
 router
-    .route('/:id').get(getRecord).delete(deleteRecord);
+    .route('/:id').get(getRecord).delete(deleteRecord).put(updateRecord);
 
 // /* GET all the records */
 // router.get('/', getRecords); // The controller function

@@ -47,3 +47,21 @@ exports.deleteRecord = (req, res, next) => {
 
     res.status(200).send(record);
 };
+
+
+exports.updateRecord = (req, res, next) => {
+    const {
+        id
+    } = req.params;
+    const data = req.body;
+
+    const record = db
+        .get('records')
+        .find({
+            id
+        })
+        .assign(data)
+        .write();
+
+    res.status(200).send(record);
+};
