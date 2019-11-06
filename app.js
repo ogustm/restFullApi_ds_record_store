@@ -13,6 +13,10 @@ const usersRouter = require('./routes/users');
 const recordsRouter = require('./routes/records');
 const ordersRouter = require('./routes/orders');
 
+//OUR MIDDLEWARE
+const {
+    setCors
+} = require('./middleware/security');
 
 // INIT THE SERVER
 const app = express();
@@ -36,7 +40,7 @@ app.use(express.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
-
+app.use(setCors);
 //STATIC FILES 
 app.use(express.static(path.join(__dirname, 'public')));
 
