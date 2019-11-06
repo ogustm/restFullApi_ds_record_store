@@ -42,7 +42,7 @@ exports.deleteRecord = (req, res, next) => {
 
     const record = db.get('records')
         .remove({
-            id
+            id: id
         }).write();
 
     res.status(200).send(record);
