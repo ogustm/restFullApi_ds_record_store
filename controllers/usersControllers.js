@@ -7,3 +7,17 @@ exports.getUser = (req, res, next) => {
     const users = db.get('users').value();
     res.status(200).send(users);
 };
+
+
+exports.addUser = (req, res, next) => {
+    const user = req.body;
+
+    db.get('users')
+        .push(user)
+        .last()
+        .assign({
+            id: Date.now().toString()
+        }).write();
+
+    res.status(200).send(user);
+};

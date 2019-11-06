@@ -6,6 +6,13 @@
       "price": 8.99,
       "year": 2019,
       "id": "1572527352143"
+    },
+    {
+      "title": "JESUS IS KING",
+      "artist": "Kanye West",
+      "price": 8.99,
+      "year": 2019,
+      "id": "1572531902499"
     }
   ],
   "users": [
@@ -16,6 +23,28 @@
       "birthday": "25.05.1987",
       "email": "loli@gmail.com",
       "password": "12Pl%14"
+    },
+    {},
+    {
+      "id": "1572532081670"
+    },
+    {
+      "firstName": "Lolita",
+      "lastName": "Pérez",
+      "userName": "lolip",
+      "birthday": "25.05.1987",
+      "email": "loli@gmail.com",
+      "password": "12Pl%14",
+      "id": "1572532295475"
+    },
+    {
+      "firstName": "Lalo",
+      "lastName": "Lalillo",
+      "userName": "lalo",
+      "birthday": "03.12.1970",
+      "email": "lalo@gmail.com",
+      "password": "3215oi%&",
+      "id": "1572532416937"
     }
   ],
   "orders": [
