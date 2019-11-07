@@ -41,6 +41,8 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(setCors);
+
+
 //STATIC FILES 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -50,5 +52,19 @@ app.use('/users', usersRouter);
 app.use('/records', recordsRouter);
 app.use('/orders', ordersRouter);
 
+// ERROR HANDLING
+
+app.use(function (req, res, next) {
+    const err = new Error('Something went wrong');
+    next(err)
+});
+
+app.use(function (err, req, res, next) {
+    res.status(400).send({
+        error: {
+            message: err.message
+        }
+    })
+});
 
 module.exports = app;
