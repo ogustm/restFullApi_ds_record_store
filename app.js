@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const low = require('lowdb')
 const FileSync = require('lowdb/adapters/FileSync')
+var mongoose = require('mongoose');
 
 //ROUTERS
 const indexRouter = require('./routes/index');
@@ -26,7 +27,7 @@ app.use(logger('dev'));
 
 //SET UP LOWDB
 const adapter = new FileSync('data/db.json');
-const db = low(adapter)
+const db = low(adapter);
 db.defaults({
         records: [],
         users: [],
@@ -41,6 +42,18 @@ app.use(express.urlencoded({
 }));
 app.use(cookieParser());
 app.use(setCors);
+
+// CONNECT TO MONGOOSE
+mongoose.connect('mongodb://localhost:27017/recordStore', {useNewUrlParser: true,
+useCreateIndex : true,
+useUnifiedTopology: true});
+
+mongoose.connection.on.bind('error', console.error);
+mongoose.connection.on('open', () => {
+    console.log('Connecting to the database...');;
+    console.log(mongoose);
+    
+});
 
 
 //STATIC FILES 
