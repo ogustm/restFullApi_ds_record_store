@@ -44,15 +44,17 @@ app.use(cookieParser());
 app.use(setCors);
 
 // CONNECT TO MONGOOSE
-mongoose.connect('mongodb://localhost:27017/recordStore', {useNewUrlParser: true,
-useCreateIndex : true,
-useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/record_store', {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+});
 
 mongoose.connection.on.bind('error', console.error);
 mongoose.connection.on('open', () => {
     console.log('Connecting to the database...');;
     console.log(mongoose);
-    
+
 });
 
 
