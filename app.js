@@ -57,6 +57,8 @@ mongoose.connection.on('open', () => {
 
 });
 
+// All .use are middleware functions
+
 
 //STATIC FILES 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -71,7 +73,7 @@ app.use('/orders', ordersRouter);
 
 app.use(function (req, res, next) {
     const err = new Error('Something went wrong');
-    next(err)
+    next(err) // This means I'm calling the next function
 });
 
 app.use(function (err, req, res, next) {

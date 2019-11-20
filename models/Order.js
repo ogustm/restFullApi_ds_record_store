@@ -20,7 +20,7 @@ const OrderSchema = new Schema({
         default: Date.now
     },
     records: [{
-        record_id: Number,
+        type: String,
         required: true
     }]
 });
