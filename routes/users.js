@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const {
+  userValidationRules,
+  userValidationErrorHandling,
+} = require('..validators/validator');
 
 const {
   getUser,
@@ -13,7 +17,7 @@ const {
 router
   .route('/')
   .get(getUser)
-  .post(addUser);
+  .post(userValidationRules(), userValidationErrorHandling, addUser);
 
 router
   .route('/:id').delete(deleteUser).put(updateUser);

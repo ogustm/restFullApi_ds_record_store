@@ -21,13 +21,6 @@ exports.getUser = async (req, res, next) => {
 
 exports.addUser = async (req, res, next) => {
     try {
-        // Finds the validation errors in this request and wraps them in an object with handy functions
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(422).json({
-                errors: errors.array()
-            });
-        }
         const user = new User(req.body);
         await user.save();
         res.status(200).send(user);
