@@ -5,6 +5,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 var mongoose = require('mongoose');
+const {
+    body,
+    sanitizeBody
+} = require('express-validator');
+
 
 //ROUTERS
 const indexRouter = require('./routes/index');
@@ -51,9 +56,24 @@ mongoose.connection.on('open', () => {
 //STATIC FILES 
 app.use(express.static(path.join(__dirname, 'public')));
 
+const validationRules = () => {
+    return [
+        body('email')
+        .isEmail()
+        .normalizeEmail()
+        .exists()
+        .withMessage('Do you call this an email?'),
+        body('password')
+        .isLength({
+            min: 10
+        }).withMessage('Your password should be 10characters long.'),
+        body('firstName').trim(),
+        body('lastName').trim()
+    ];
+};
 // ROUTES
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/users', validationRules(), usersRouter);
 app.use('/records', recordsRouter);
 app.use('/orders', ordersRouter);
 
