@@ -21,7 +21,7 @@ exports.addUser = async (req, res, next) => {
         const user = new User(req.body);
         await user.save();
         res.status(200).send(user);
-    } catch (error) {
+    } catch (e) {
         next(e);
     }
 };
@@ -36,15 +36,13 @@ exports.updateUser = async (req, res, next) => {
     } catch (error) {
         next(e);
     }
-
-
 }
 
 exports.deleteUser = async (req, res, next) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
         if (!user) throw new createError.NotFound();
-        res.status(200).send(user)
+        res.status(200).send(user);
     } catch (e) {
         next(e);
     }
