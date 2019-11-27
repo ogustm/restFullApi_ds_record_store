@@ -3,7 +3,7 @@ var router = express.Router();
 const {
   userValidationRules,
   userValidationErrorHandling,
-} = require('..validators/validator');
+} = require('../validators/validator');
 
 const {
   getUser,

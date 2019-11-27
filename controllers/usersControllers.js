@@ -1,23 +1,30 @@
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync('data/db.json');
-const db = low(adapter);
-////////////////////////////////////
 const User = require('../models/User');
 const createError = require('http-errors');
 const {
     validationResult
 } = require('express-validator');
 
-exports.getUser = async (req, res, next) => {
+exports.getUsers = async (req, res, next) => {
     try {
-        const users = await User.find();
+        const users = await User.find()
+            .select('-password -_v')
+            .sort('-lastname')
+            .limit(5)
         res.status(200).send(users);
     } catch (e) {
         next(e);
     }
 };
 
+exports.getUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) throw new createError.NotFound();
+        res.status(200).send(user);
+    } catch (e) {
+        next(e);
+    }
+};
 
 exports.addUser = async (req, res, next) => {
     try {

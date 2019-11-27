@@ -1,19 +1,16 @@
-const low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
-const adapter = new FileSync('data/db.json');
-const db = low(adapter);
-////////////////////////////
 const Order = require('../models/Order');
 const createError = require('http-errors');
 
 exports.getOrders = async (req, res, next) => {
     try {
-        const orders = await Record.find();
+        const orders = await Record.find().populate('records', ' -_v');
         res.status(200).send(orders);
     } catch (e) {
         next(e);
     }
 };
+
+
 
 exports.addOrder = async (req, res, next) => {
     try {
@@ -36,7 +33,7 @@ exports.getOneOrder = async (req, res, next) => {
 };
 
 
-exports.deleteOrder = (req, res, next) => {
+exports.deleteOrder = async (req, res, next) => {
     try {
         const order = await Order.findByIdAndDelete(req.params.id);
         if (!order) throw new createError.NotFound();
