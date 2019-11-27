@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const {
     Schema
 } = mongoose;
+const Address = require('./Address')
 
 //Schema
 
@@ -33,6 +34,10 @@ const UserSchema = new Schema({
         type: String,
         required: [true, "Don't forget to add a password!"]
     },
+    address: {
+        type: Address,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('User', UserSchema); //MODEL
