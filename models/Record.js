@@ -20,7 +20,7 @@ const RecordSchema = new Schema({
 
     },
     year: {
-        type: Number,
+        type: String,
         required: true
     }
 });
