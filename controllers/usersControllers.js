@@ -31,7 +31,7 @@ exports.addUser = async (req, res, next) => {
         const user = new User(req.body);
         const token = user.generateAuthToken();
         await user.save();
-        res.status(200).send(user);
+        res.status(200).header('x-auth', token).send(user);
     } catch (e) {
         next(e);
     }
