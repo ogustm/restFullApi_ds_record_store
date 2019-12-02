@@ -6,8 +6,9 @@ const {
 } = require('../validators/validator');
 
 const {
-  getUser,
+  getUsers,
   addUser,
+  getUser,
   deleteUser,
   updateUser
 } = require('../controllers/usersControllers');
@@ -16,10 +17,10 @@ const {
 
 router
   .route('/')
-  .get(getUser)
+  .get(getUsers)
   .post(userValidationRules(), userValidationErrorHandling, addUser);
 
 router
-  .route('/:id').delete(deleteUser).put(updateUser);
+  .route('/:id').get(getUser).delete(deleteUser).put(updateUser);
 
 module.exports = router;

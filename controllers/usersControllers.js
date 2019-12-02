@@ -29,6 +29,7 @@ exports.getUser = async (req, res, next) => {
 exports.addUser = async (req, res, next) => {
     try {
         const user = new User(req.body);
+        const token = user.generateAuthToken();
         await user.save();
         res.status(200).send(user);
     } catch (e) {

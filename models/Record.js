@@ -14,14 +14,14 @@ const RecordSchema = new Schema({
         type: String,
         required: true
     },
+    year: {
+        type: String,
+        required: true
+    },
     price: {
         type: Number,
         required: true
 
-    },
-    year: {
-        type: String,
-        required: true
     }
 });
 

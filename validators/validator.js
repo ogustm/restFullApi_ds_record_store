@@ -7,8 +7,8 @@ const userValidationRules = () => {
     return [
         body('email')
         .isEmail()
-        .normalizeEmail()
         .exists()
+        .normalizeEmail()
         .withMessage('Do you call this an email?'),
         body('password')
         .isLength({

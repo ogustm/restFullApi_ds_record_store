@@ -7,22 +7,42 @@ const {
 
 const OrderSchema = new Schema({
 
-    quuantity: {
-        type: Number,
-        required: true
-    },
-    userId: {
-        type: String,
-        required: true
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     },
     date: {
         type: Date,
-        default: Date.now
+        default: new Date()
     },
     records: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Record'
+        quantity: {
+            type: Number,
+            required: true,
+
+        },
+        record: {
+            type: Schema.Types.ObjectId,
+            ref: 'Record'
+        }
     }]
+}, {
+    toJSON: {
+        virtuals: true
+    },
+    toObject: {
+        virtuals: true
+    }
+});
+
+OrderSchema.virtual('totalPrice').get(function () {
+    let records = this.records;
+    console.log(this);
+
+    totalPriceReducer = (acc, curr) => {
+        return acc + curr.quantity * curr.record.price;
+    }
+    return totalPrice = records.reduce(totalPriceReducer, 0);
 });
 
 module.exports = mongoose.model('Order', OrderSchema); //MODEL

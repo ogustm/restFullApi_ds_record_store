@@ -1,9 +1,7 @@
-console.log('I AM A SEED SCRIPT!');
-
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const faker = require('faker');
 const User = require('../models/User');
-const Record = ('../models/Record');
+const Record = require('../models/Record');
 
 // CONNECT TO MONGOOSE / ASYNC FUNCTION
 
@@ -24,35 +22,30 @@ const Record = ('../models/Record');
         console.log('Connecting to the database...');
     });
 
-    // console.log(`First)
-
-    //Model.prototype.save() => we save the users we create with faker 
-
-    console.log('I am creating 20 fake users');
-
+    console.log('Here I am deleting the users');
 
     //** DELETE ALL USERS */
     try {
         await User.deleteMany({});
-        console.log('Old users moved to a better place. Spandau');
+        console.log('Old users moved to a better place.');
 
     } catch (error) {
         console.log(error)
     }
 
-    console.log(`I'm creating 20fake users`);
+    console.log(`I'm creating 20 fake users`);
 
-    //** CREATE ALL USERS */
+    //** CREATE 20 NEW FAKE USERS */
     const userPromises = Array(20)
         .fill(null)
         .map(() => {
             const user = new User({
                 firstName: faker.name.firstName(),
                 lastName: faker.name.lastName(),
-                userName: faker.internet.userName(),
-                birthday: faker.date.past(),
                 email: faker.internet.email(),
                 password: faker.internet.password(),
+                birthday: faker.date.past(),
+                userName: faker.internet.userName(),
                 address: {
                     city: faker.address.city(),
                     street: faker.address.streetName()
@@ -73,12 +66,12 @@ const Record = ('../models/Record');
 
     try {
         await Record.deleteMany({});
-        console.log('Old users moved to a better place. Spandau');
+        console.log('Old users moved to a better place.');
 
     } catch (error) {
         console.log(error)
     }
-    //** CREATE NEW RECORDS */
+    //** CREATE 20 NEW FAKE RECORDS */
     const recordPromises = Array(20)
         .fill(null)
         .map(() => {
