@@ -59,3 +59,8 @@ exports.deleteUser = async (req, res, next) => {
         next(e);
     }
 };
+
+exports.authenticateUser = async (req, res, next) => {
+    res.status(200).send(req.user);
+
+};

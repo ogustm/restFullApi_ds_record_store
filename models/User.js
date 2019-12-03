@@ -67,7 +67,7 @@ UserSchema.methods.generateAuthToken = function () {
     const user = this;
     const access = 'x-auth';
     const token = jwt.sign({
-        id: user._id.toHexString(),
+        _id: user._id.toHexString(),
         access
     }, 'babylonia').toString();
     console.log(token);
@@ -78,4 +78,26 @@ UserSchema.methods.generateAuthToken = function () {
     });
     return token;
 };
+
+UserSchema.statics.findByToken = function (token) {
+    const User = this;
+    let decoded;
+    try {
+        decoded = jwt.verify(token, 'babylonia');
+
+    } catch (error) {
+        return;
+    }
+
+
+    console.log(decoded);
+
+    return User.findOne({
+        _id: decoded._id,
+        "tokens.token": token,
+        'tokens.access': decode.access
+    });
+
+};
+
 module.exports = mongoose.model('User', UserSchema); //MODEL

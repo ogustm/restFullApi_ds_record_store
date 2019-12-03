@@ -11,10 +11,10 @@ const {
 
 router
     .route('/')
-    .get(getOrders)
-    .post(addOrder);
+    .get(auth, getOrders)
+    .post(auth, addOrder);
 
 router
-    .route('/:id').get(getOneOrder).delete(deleteOrder).put(updateOrder);
+    .route('/:id').get(auth, getOneOrder).delete(auth, deleteOrder).put(auth, updateOrder);
 
 module.exports = router;
