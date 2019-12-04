@@ -51,6 +51,7 @@ const Record = require('../models/Record');
                     street: faker.address.streetName()
                 }
             });
+            const token = user.generateAuthToken();
             return user.save();
         });; //It creates an Array of 20 Stuffs
 

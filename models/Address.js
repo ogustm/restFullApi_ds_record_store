@@ -12,7 +12,8 @@ const AddressSchema = new Schema({
     city: {
         type: String,
         required: true
-    }
+    },
+    _id: false
 });
 
 module.exports = AddressSchema;

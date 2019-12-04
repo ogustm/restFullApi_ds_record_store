@@ -3,7 +3,7 @@ const createError = require('http-errors');
 
 exports.getRecords = async (req, res, next) => {
     try {
-        const record = await Record.find();
+        const record = await Record.find().select('__v');
         res.status(200).send(record);
     } catch (e) {
         next(e)
@@ -25,7 +25,7 @@ exports.getRecord = async (req, res, next) => {
 
     try {
 
-        const record = await Record.findById(id);
+        const record = await Record.findById(id).select('- __v');
         if (!record) throw new createError.NotFound();
         res.status(200).send(record);
     } catch (e) {
@@ -35,7 +35,7 @@ exports.getRecord = async (req, res, next) => {
 
 exports.deleteRecord = async (req, res, next) => {
     try {
-        const record = await Record.findByIdAndDelete(req.params.id);
+        const record = await Record.findByIdAndDelete(req.params.id).select('- __v');
         if (!record) throw new createError.NotFound();
         res.status(200).send(record);
     } catch (e) {
@@ -48,7 +48,7 @@ exports.updateRecord = async (req, res, next) => {
     try {
         const record = await Record.findByIdAndUpdate(req.params.id, req.body, {
             new: true // the boolean returns the modified item
-        });
+        }).select('__v');
         if (!record) throw new createError.NotFound();
         res.status(200).send(record);
     } catch (e) {

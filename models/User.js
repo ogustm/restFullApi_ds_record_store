@@ -4,6 +4,7 @@ const {
 } = mongoose;
 const Address = require('./Address');
 const jwt = require('jsonwebtoken');
+const encription = require("../lib/encription");
 
 //Schema
 
@@ -79,6 +80,19 @@ UserSchema.methods.generateAuthToken = function () {
     return token;
 };
 
+
+
+UserSchema.methods.getPublicFields = function () {
+    return {
+        _id: this._id,
+        firstName: this.firstName,
+        lastName: this.lastName,
+        email: this.email,
+        birthday: new Date(this.birthday),
+        address: this.address
+    }
+};
+
 UserSchema.statics.findByToken = function (token) {
     const User = this;
     let decoded;
@@ -98,6 +112,14 @@ UserSchema.statics.findByToken = function (token) {
         'tokens.access': decode.access
     });
 
+};
+
+UserSchema.pre('save'), async function (next) {
+    //only hash the password is it has been modified
+    if (!this.isModified('password')) return next();
+
+    this.password = await encription.encrypt(this.password);
+    next();
 };
 
 module.exports = mongoose.model('User', UserSchema); //MODEL
