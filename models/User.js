@@ -4,7 +4,7 @@ const {
 } = mongoose;
 const Address = require('./Address');
 const jwt = require('jsonwebtoken');
-const encription = require("../lib/encription");
+const encryption = require("../lib/encryption");
 
 //Schema
 
@@ -118,7 +118,7 @@ UserSchema.pre('save'), async function (next) {
     //only hash the password is it has been modified
     if (!this.isModified('password')) return next();
 
-    this.password = await encription.encrypt(this.password);
+    this.password = await encryption.encrypt(this.password);
     next();
 };
 
