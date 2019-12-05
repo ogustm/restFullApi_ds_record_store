@@ -39,18 +39,7 @@ const UserSchema = new Schema({
     address: {
         type: Address,
         required: true
-    },
-    tokens: [{
-        access: {
-            type: String,
-            required: true
-
-        },
-        token: {
-            type: String,
-            required: true
-        }
-    }]
+    },         
 }, {
     toJSON: {
         virtuals: true
@@ -80,7 +69,10 @@ UserSchema.methods.generateAuthToken = function () {
     return token;
 };
 
-
+UserSchema.methods.checkPassword = async function(password){
+    const user = this;
+    return await encryption.compare(password, user.password)
+};
 
 UserSchema.methods.getPublicFields = function () {
     return {
@@ -107,9 +99,7 @@ UserSchema.statics.findByToken = function (token) {
     console.log(decoded);
 
     return User.findOne({
-        _id: decoded._id,
-        "tokens.token": token,
-        'tokens.access': decode.access
+        _id: decoded._id        
     });
 
 };

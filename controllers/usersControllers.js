@@ -9,7 +9,7 @@ const {
 exports.getUsers = async (req, res, next) => {
     try {
         const users = await User.find()
-            .select('-password -_v')
+            .select('-password -_v -tokens._id')
             .sort('-lastname')
             .limit(5)
         res.status(200).send(users);
@@ -39,6 +39,25 @@ exports.addUser = async (req, res, next) => {
         next(e);
     }
 };
+
+exports.loginUser = async (req, res, next) => {
+    //Get email and pass from the body
+    const {email,password} = req.body;
+
+    try {
+       const user = await User.findOne({ email });
+    
+        // Write a method that takes in user.password and password we sent
+        const canLogin = await user.checkPassword(password);
+        if(!canLogin) throw new createError.NotFound();
+        const data = user.getPublicFields();
+
+        res.status(200).header('x-auth',token).send(data); 
+    } catch (e) {
+
+        next(e);
+    }
+}
 
 exports.updateUser = async (req, res, next) => {
     try {

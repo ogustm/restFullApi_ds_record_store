@@ -12,7 +12,8 @@ const {
   getUser,
   deleteUser,
   updateUser,
-  authenticateUser
+  authenticateUser,
+  loginUser
 } = require('../controllers/usersControllers');
 
 /* GET users listing. */
@@ -22,9 +23,8 @@ router
   .get(auth, getUsers)
   .post(userValidationRules(), userValidationErrorHandling, addUser);
 
-router
-  .route('/me')
-  .get(auth, authenticateUser);
+router.route('/me').get(auth, authenticateUser);
+router.route('/login').post(loginUser);
 
 router
   .route('/:id').get(auth, getUser).delete(auth, deleteUser).put(auth, updateUser);

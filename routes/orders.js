@@ -15,6 +15,9 @@ router
     .post(auth, addOrder);
 
 router
-    .route('/:id').get(auth, getOneOrder).delete(auth, deleteOrder).put(auth, updateOrder);
+    .route('/:id')
+    .get(auth, getOneOrder)
+    .delete(auth, deleteOrder)
+    .put(auth, updateOrder);
 
 module.exports = router;

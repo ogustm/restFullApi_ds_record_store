@@ -3,7 +3,7 @@ const createError = require('http-errors');
 
 exports.getRecords = async (req, res, next) => {
     try {
-        const record = await Record.find().select('__v');
+        const record = await Record.find().select('- _v');
         res.status(200).send(record);
     } catch (e) {
         next(e)
@@ -24,7 +24,6 @@ exports.addRecord = async (req, res, next) => {
 exports.getRecord = async (req, res, next) => {
 
     try {
-
         const record = await Record.findById(id).select('- __v');
         if (!record) throw new createError.NotFound();
         res.status(200).send(record);
