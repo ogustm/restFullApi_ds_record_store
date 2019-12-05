@@ -46,6 +46,7 @@ const Record = require('../models/Record');
                 password: faker.internet.password(),
                 birthday: faker.date.past(),
                 userName: faker.internet.userName(),
+                role: faker.random.arrayElement(["admin", "user"]),
                 address: {
                     city: faker.address.city(),
                     street: faker.address.streetName()

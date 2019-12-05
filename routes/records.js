@@ -13,10 +13,13 @@ const auth = require('../middleware/authentication')
 router
     .route('/')
     .get(getRecords)
-    .post(addRecord);
+    .post(auth, addRecord);
 
 router
-    .route('/:id').get(auth, getRecord).delete(auth, deleteRecord).put(auth, updateRecord);
+    .route('/:id')
+    .get(auth, getRecord)
+    .delete(auth, isAdmin, deleteRecord)
+    .put(auth, isAdmin, updateRecord);
 
 
 module.exports = router;

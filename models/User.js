@@ -36,6 +36,11 @@ const UserSchema = new Schema({
         required: [true, "Add an User Name"],
         unique: true
     },
+    role: {
+        type: String,
+        enum: ["Admin", "User"],
+        require: true
+    },
     address: {
         type: Address,
         required: true
